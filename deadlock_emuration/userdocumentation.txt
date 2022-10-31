@@ -1,0 +1,246 @@
+User Documentation
+YO KOGURE
+
+Start date: 7 Oct 2021
+Last modified: 9 Oct 2021
+
+----------------------------------------------------------------------------------------------------------------------
+Task 1:
+This is my Task 1, where I have implemented a simulator program for process scheduling algorithms.
+In this Task I have implemented it in FCFS(First Come, First Served), non-preemptive scheduling algorithms. That is, 
+it does not interfere with the current-running processs once any process has gone RUNNING.
+
+Some of the key things to note are:
+- A process does continue to run to its completion even if it does not manage to meet its deadline.
+- 
+
+Assumptions that I made are:
+- The name of the proccess is never more than 10 characters in length, and do not contain spaces
+- The arrival time in each process are in ascending order, for example, (0, 1, 1, 2)
+- The given deadline for a process will be always greater or equal to the service time of
+that process.
+- There CAN be multiple processes with exact same arrival time
+- I have assumed maximum number of possible processes to handle to be 100
+- There IS a chance where there is not any process to arrival at Time 0, and my codes have covered such case. However, as they don't 
+specify fully in the instruction, I have assumed that there is no time where process is not arriving after the first process(
+    my codes do work to give the message to end the program in such case, I have assumed so for better user experience)
+
+
+How to use this program:
+
+First, prepare a text file and note down [Process Name] [Arrival Time] [Service Time] [Deadline], in these order representing
+one line per process, just like an example below:
+
+    P1 0 3 5
+    P2 1 6 7
+    P3 4 4 6
+    P4 6 2 2
+
+Secondly, type in:
+    gcc task1-32134541.c -o task1
+
+in the terminal. What this does, is that it compiles using gcc. The argument -o specifies that I want to set the 
+name of the compiled file to be task1 for ease.
+Now that it is compiled, I have 2 options.
+
+First choice, type in:
+    ./task1
+this will set "processes.txt" as a default file to load from.
+
+Second choice, type in:
+    ./task 1 /Users/yoo/2100/Assignment2/processes2.txt 
+this will allow us to choose which file to refer from. In this case, the program will set processes2.txt as a source text file.
+
+Now, the program will print to the console, messages like below:
+    Time 0:    P1 has entered the system.
+    Time 0:    P1 is in the running state.
+    Time 1:    P2 has entered the system.
+    Time 3:    P1 has finished execution.
+    Time 3:    P2 is in the running state.
+    Time 4:    P3 has entered the system.
+    Time 6:    P4 has entered the system.
+    Time 9:    P2 has finished execution.
+    Time 9:    P3 is in the running state.
+    Time 13:    P3 has finished execution.
+    Time 13:    P4 is in the running state.
+    Time 15:    P4 has finished execution.
+All processes complete!
+
+From this we can analyze how the program is being simulated under FCFS basis.
+
+Lastly, a new text file called results-task1.txt is created.
+
+This will contain 4 characteristics of each process in each line:
+    [Process Name] [Wait Time] [Turnaround Time] [Deadline Met]
+
+For instance, for example above, the output would be 
+    P1 0 3 1
+    P2 2 8 0
+    P3 5 9 0
+    P4 7 9 0 
+
+,space separated.
+For Deadline Met, it is 1 if Turnaround Time has successfully been lesser or equal to its given deadline.
+It is 0 if it has failed to meet its deadline.
+End of Task 1 User Documentation!!
+----------------------------------------------------------------------------------------------------------------------
+
+Task 2:
+This is my Task 2, where I have implemented a simulator program for process scheduling algorithms.
+In this Task 2 have implemented it in SRTN(Shortest Remaining Time Next), preemptive scheduling algorithms. That is, 
+it DOES interfere with the current-running processs in order to maximize efficiency of the program.
+It has a Time Quantum of 3. This means that after a process is under RUNNING for 3 seconds, it is interfered and 
+the program will decide which process to continue running after considering every shortest remaining time.
+
+
+Assumptions that I made on the interpretation of this program are:
+- A process does continue to run to its completion even if it does not manage to meet its deadline.
+- The name of the proccess is never more than 10 characters in length, and do not contain spaces
+- The arrival time in each process are in ascending order
+- The given deadline for a process will be always greater or equal to the service time of
+that process.
+- There CAN be multiple processes with exact same arrival time
+- I have assumed maximum number of possible processes to handle to be 100
+- There is no process with a service time of more than 100000 seconds. This is the value I have #define d as a minimum_value in
+my code, and this should be an acceptable assumption.
+- There IS a chance where there is not any process to arrival at Time 0, and my codes have covered such case 
+
+
+How to use this program:
+
+First, prepare a text file and note down [Process Name] [Arrival Time] [Service Time] [Deadline], in these order representing
+one line per process, just like an example below:
+
+    A 0 3 3
+    B 2 6 6
+    C 4 4 4
+    D 6 5 5
+    E 8 2 2
+
+Secondly, type in:
+    gcc task2-32134541.c -o task2
+
+in the terminal. What this does, is that it compiles using gcc. The argument -o specifies that I want to set the 
+name of the compiled file to be task2 for ease.
+Now that it is compiled, I have 2 options.
+
+First choice, type in:
+    ./task2
+this will set "processes.txt" as a default file to load from.
+
+Second choice, type in:
+    ./task 1 /Users/yoo/2100/Assignment2/processes2.txt 
+take relative path as an argument. 
+this will allow us to choose which file to refer from. In this case, the program will set processes2.txt as a source text file.
+
+Once you have selected those process files,
+Now, the program will print to the console, messages like below:
+    Time 0:    A has entered the system.
+    Time 0:    A is in the running state.
+    Time 2:    B has entered the system.
+    Time 3:    A has finished execution.
+    Time 3:    B is in the running state.
+    Time 4:    C has entered the system.
+    Time 6:    D has entered the system.
+    Time 8:    E has entered the system.
+    Time 9:    B has finished execution.
+    Time 9:    E is in the running state.
+    Time 11:    E has finished execution.
+    Time 11:    C is in the running state.
+    Time 15:    C has finished execution.
+    Time 15:    D is in the running state.
+    Time 20:    D has finished execution.
+// this is a test case obtained from Ed, and I have proven many times that they work exactly as expected.
+From this we can analyze how the program is being simulated under SRTN algorithms.
+
+Lastly, a new text file called results-task2.txt is created.
+
+This will contain 4 characteristics of each process in each line:
+    [Process Name] [Wait Time] [Turnaround Time] [Deadline Met]
+
+For instance, for example above, the output would be 
+    A 0 3 1
+    B 1 7 0
+    C 7 11 0
+    D 9 14 0
+    E 1 3 0
+
+,space separated.
+For Deadline Met, it is 1 if Turnaround Time has successfully been lesser or equal to its given deadline.
+It is 0 if it has failed to meet its deadline.
+End of Task 2 User Documentation!!
+
+
+----------------------------------------------------------------------------------------------------------------------
+Task 3:
+In this task, I am expected to find/create a new algorithm that maximizes the number of processes that meet
+their specified deadlines.
+
+I have decided to implement a new algorithm, from scratch and I will document how it works below.
+
+Other than the basic assumptions like:
+- A process DOES continue to run to its completion even if it does not manage to meet its deadline.
+- The name of the proccess is never more than 10 characters in length, and do not contain spaces
+- The arrival time in each process are in ascending order
+- The given deadline for a process will be always greater or equal to the service time of
+that process.
+- There CAN be multiple processes with exact same arrival time
+- I have assumed maximum number of possible processes to handle to be 100
+- There is no process with a service time of more than 100000 seconds
+- There IS a chance where there is not any process to arrival at Time 0
+
+I have interpreted this Task as:
+- There may be some processes which might not make it for the deadline.
+- However, this algorithm tries to minimize such cases.
+- Although the first priority is always making it for the deadline, as a second factor it considers First Come First Served 
+idea just like in Task 1 and Task 2.
+
+Above are my assuptions, and here is how and why they work:
+- The algorithm uses a partial codes from FCFS and SRTN algorithm in Task 2.
+- However, the main priority is maximizing the number of process to meet their deadlines.
+
+1) I will set a time quantum to be 1, as this will make frequent as to whether many processes make it in time or not.
+2) Every second, it will check for each process, a variable called deadline_count.
+3) deadline_count = deadlineTime - (waitTime of the process + remainingTime of the process).
+4) This deadline_count for each process will contain integer, an indicator for how much to prioritize. We are considering waitTime and
+not just serviceTime/remainingTime, and that is because it gives more accurate idea of how much time processes are under wait, and adjust
+in real-time approach(every second).
+
+5) Every second(time quantum), it will find deadline_count for all process, and set the running file to that with smallest
+value. It is a preemptive algorithm, that updates every second in order of priority. Because those that are close to the deadline,
+and almost might not make it, are set to running first.
+
+For example, consider case
+    A 0 7 15
+    B 1 3 4
+    C 2 4 4
+    D 3 8 9
+
+Although this does not work for every single one, it does work for test cases like above.
+If we had used FCFS approach, the number of those that made it to deadline are 1/4. 
+
+    A 0 7 1
+    B 6 9 0
+    C 8 12 0
+    D 11 19 0
+
+If we had used SRTN approach, the number of those that made it to deadline are 1/4.
+    A 0 7 1
+    B 6 9 0
+    C 8 12 0
+    D 11 19 0
+However in my Deadline Count Algorithm, it is 3/4 that have met the specified requirement.
+    A 0 7 1
+    B 1 4 1
+    C 16 20 0
+    D 1 9 1
+
+This is because this program prioritizes how close they are to the deadline every second while taking into account
+waitTime, remainingTime and finally, deadlineTime.
+
+The base codes are pretty similar, however, at line 59 onwards there is a function I have added called find_lowest_deadline_count(), 
+which extends efficiently.
+
+I have met the requirements for Task 3 and have completed Assignment Part B.
+
+----------------------------------------------------------------------------------------------------------------------
