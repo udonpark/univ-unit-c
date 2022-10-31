@@ -1,0 +1,75 @@
+This is my documentation file that explain the 
+characteristics of my program, as well as a manual for how to use this fileutil.c.
+I have used Visual Studio Code for main coding, but have made sure they work on Linux environment.
+-- Written by: Yo Kogure 
+-- Start date: 25/August/2021
+-- End date: 27/August/2021
+
+This program that I have designed, is a utility software that performs viewing file, 
+copying file, with modified extentions.
+
+In order to compile the program, please go to your directory containing the file, using cd(Change Directory).
+Once you are there, type In:
+    gcc 32134541_fileutil.c -o utility
+- What this does, is that it compiles using gcc. The argument -o specifies that I want to set the name of the compiled
+program to be "utility". I prefer this since it is simple and easier to type.
+
+Whenever you want to run execute the program, type in:
+    ./utility
+This will print out the first 10 lines in sample.txt, stored in the same directory.
+
+If you want to specify a file to open and view, for example this text file:
+    ./utility /Users/yoo/2100/Assignment1/documentation.txt 
+This will open documentation.txt file and print the first 10 lines. Gives error message if incorrect file path.
+Please note:
+-You must type in absolute path to the file. I could have accepted relative path, but it is specified so and this
+is my implementation, it has to be followed.
+-When you add optional arguments such as -n, -d, -L, this filepath has to be the FIRST ARGUMENT no matter what, as this
+is what this program assumes.
+
+If you want to change the number of lines to, say, 3:
+    ./utility -n 3
+This will print the first 3 lines in sample.txt. Gives error if valid integer is not typed or it is missing after -n.
+
+If you want to make a new file and copy certain lines into there:
+    ./utility -d /Users/yoo/2100/Assignment1/directory1
+This will create a file called sample.txt in directory1, and writes in the first 10 lines in sample.txt.
+This will copy specified lines to a destination directory.
+
+If you want to go into Tail Mode:
+    ./utility -L
+This will print out the last 10 lines in sample.txt to terminal.
+
+Now that all options are introduced, any combination of them works in any order.
+For instance, 
+
+    ./utility /Users/yoo/2100/Assignment1/documentation.txt -L -n 4
+This will print out the last 4 lines in documentation.txt file
+
+    ./utility /Users/yoo/2100/Assignment1/documentation.txt -n 12 -d /Users/yoo/2100/Assignment1/directory1
+This will create a new file called documentation.txt in directory1, and the first 12 lines are copied from original to the
+destination.
+
+    ./utility -n 3 -L
+This will writes out the the console, the last 3 elements in sample.txt from the current directory
+
+    ./utility -n three 
+This will give an error since invalid argument type.
+
+    ./utility -d Assignment1/directory1
+This will result in an error message due to incomplete absolute path to the directory.
+
+
+Here is a summary of optional arguments after ./utility (Copied from specimen sheet)
+sourcefile: 
+    Allows the user to input a path for the sourcefile to display/copy.
+    sourcefile must appear immediately after the command (e.g., ./fileutil sourcefile).
+-d destdir 
+    Allows the user to input a path for the destination directory for copying the source file.
+    (destdir must appear immediately after -d)
+-n numlines 
+    Allows the user to input a number to specify how many lines of text should be displayed/copied.
+    (numlines must appear immediately after -n)
+-L 
+    Makes the program to switch to Tail mode where the View/Copy should be performed on the
+    last 10 (or n) lines.
